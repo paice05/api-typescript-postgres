@@ -18,6 +18,8 @@
     "uuid": "^3.3.3"
   },
   "devDependencies": {
+    "eslint": "^6.7.2",
+    "eslint-config-airbnb-base": "^14.0.0",
     "nodemon": "^1.19.4",
     "sequelize-cli": "^5.5.1"
   }

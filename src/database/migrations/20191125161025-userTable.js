@@ -1,10 +1,10 @@
-const uuid = require("uuid/v4");
+const uuid = require('uuid/v4');
 
-("use strict");
+('use strict');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("users", {
+    return queryInterface.createTable('users', {
       id: {
         type: Sequelize.DataTypes.UUID,
         primaryKey: true,
@@ -14,7 +14,7 @@ module.exports = {
       name: Sequelize.STRING,
       type_account: {
         type: Sequelize.STRING,
-        enum: ["buy", "sale"]
+        enum: ['buy', 'sale']
       },
       full_name: Sequelize.STRING,
       username: Sequelize.STRING,
@@ -32,6 +32,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("users");
+    return queryInterface.dropTable('users');
   }
 };

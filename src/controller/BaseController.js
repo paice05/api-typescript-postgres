@@ -1,4 +1,4 @@
-const { Router } = require("express");
+const { Router } = require('express');
 
 class BaseController {
   constructor(model, path) {
@@ -17,7 +17,7 @@ class BaseController {
 
     const response = await this.model.findByPk(id);
 
-    if (!response) return res.json({ message: "Record not found" });
+    if (!response) return res.json({ message: 'Record not found' });
 
     return res.json(response);
   }
@@ -34,7 +34,7 @@ class BaseController {
 
     const isRecord = await this.model.findByPk(id);
 
-    if (!isRecord) return res.json({ message: "record not found!" });
+    if (!isRecord) return res.json({ message: 'record not found!' });
 
     const [number, response] = await this.model.update(
       { ...body },
@@ -50,11 +50,11 @@ class BaseController {
 
     const isRecord = await this.model.findByPk(id);
 
-    if (!isRecord) return res.json({ message: "record not found!" });
+    if (!isRecord) return res.json({ message: 'record not found!' });
 
     await this.model.destroy({ where: { id } });
 
-    return res.status(200).json({ message: "OK" });
+    return res.status(200).json({ message: 'OK' });
   }
 
   routes() {

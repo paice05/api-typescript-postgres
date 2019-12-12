@@ -1,10 +1,10 @@
-const uuid = require("uuid/v4");
+const uuid = require('uuid/v4');
 
-("use strict");
+('use strict');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("address", {
+    return queryInterface.createTable('address', {
       id: {
         type: Sequelize.DataTypes.UUID,
         primaryKey: true,
@@ -15,8 +15,8 @@ module.exports = {
         type: Sequelize.DataTypes.UUID,
         allowNull: true,
         references: {
-          model: "users",
-          key: "id"
+          model: 'users',
+          key: 'id'
         }
       },
       zipcode: Sequelize.DataTypes.STRING,
@@ -38,6 +38,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("address");
+    return queryInterface.dropTable('address');
   }
 };

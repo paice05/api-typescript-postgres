@@ -4,6 +4,11 @@ class Address extends Model {
   static init(connection) {
     super.init(
       {
+        id: {
+          type: DataTypes.UUIDV4,
+          primaryKey: true,
+          allowNull: false
+        },
         zipcode: DataTypes.STRING,
         street: DataTypes.STRING,
         neighborhood: DataTypes.STRING,

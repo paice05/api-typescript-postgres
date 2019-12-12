@@ -1,9 +1,16 @@
 const { Model, DataTypes } = require('sequelize');
+const uuid = require('uuid/v4');
 
 class User extends Model {
   static init(connection) {
     super.init(
       {
+        id: {
+          type: DataTypes.UUIDV4,
+          primaryKey: true,
+          allowNull: false,
+          defaultValue: uuid()
+        },
         name: DataTypes.STRING,
         type_account: DataTypes.STRING,
         full_name: DataTypes.STRING,

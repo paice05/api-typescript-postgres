@@ -7,6 +7,8 @@ module.exports = (req, res, next) => {
   return verify(token, process.env.SECRET_JWT, (err, decoded) => {
     if (err) return res.status(401).json({ message: 'unauthorized' });
 
+    req.user = decoded.isUser;
+
     return next();
   });
 };

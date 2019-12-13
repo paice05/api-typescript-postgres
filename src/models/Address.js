@@ -5,9 +5,10 @@ class Address extends Model {
     super.init(
       {
         id: {
-          type: DataTypes.UUIDV4,
+          type: DataTypes.INTEGER,
           primaryKey: true,
-          allowNull: false
+          allowNull: false,
+          autoIncrement: true
         },
         zipcode: DataTypes.STRING,
         street: DataTypes.STRING,

@@ -2,9 +2,10 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('users', {
       id: {
-        type: Sequelize.DataTypes.UUID,
+        type: Sequelize.DataTypes.INTEGER,
         primaryKey: true,
-        allowNull: false
+        allowNull: false,
+        autoIncrement: true
       },
       name: Sequelize.STRING,
       type_account: {
@@ -12,7 +13,10 @@ module.exports = {
         enum: ['buy', 'sale']
       },
       full_name: Sequelize.STRING,
-      username: Sequelize.STRING,
+      username: {
+        type: Sequelize.STRING,
+        unique: true
+      },
       password: Sequelize.STRING,
       phone: Sequelize.STRING,
       created_at: {

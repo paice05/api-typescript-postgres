@@ -30,8 +30,8 @@ class BaseController {
 
   async store(req, res) {
     if (req.body.password) {
-      const senha = await generateHash(req.body.password);
-      req.body.password = senha;
+      const password = await generateHash(req.body.password);
+      req.body.password = password;
     }
 
     try {

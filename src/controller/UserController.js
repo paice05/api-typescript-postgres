@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { compare } = require('bcrypt');
 
 // models
 const User = require('../models/User');
@@ -14,23 +15,26 @@ class UserController extends BaseController {
   async login(req, res) {
     const { username, password } = req.body;
 
-    const isUser = await this.model.findOne({ where: { username, password } });
+    const isUser = await this.model.findOne({ where: { username } });
 
     if (!isUser) return res.json({ message: 'User not found!' });
 
-    return jwt.sign(
-      { isUser },
-      process.env.SECRET_JWT,
-      { expiresIn: '8d' },
-      (err, token) => {
-        if (err) return res.json({ message: String(err) });
+    return compare(password, isUser.password, (err, data) => {
+      if (!data) { return res.status(500).json({ message: 'Password not found!' }); }
+      return jwt.sign(
+        { isUser },
+        process.env.SECRET_JWT,
+        { expiresIn: '8d' },
+        (err, token) => {
+          if (err) return res.json({ message: String(err) });
 
-        return res.json({
-          token,
-          data: isUser
-        });
-      }
-    );
+          return res.json({
+            token,
+            data: isUser
+          });
+        }
+      );
+    });
   }
 
   routes() {

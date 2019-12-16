@@ -1,15 +1,19 @@
 require('dotenv').config();
-const express = require('express');
 const morgan = require('morgan');
+const express = require('express');
+const http = require('http');
+const app = express();
+const server = http.createServer(app);
+
+const io = require('socket.io')(server);
 
 const routes = require('./routes');
 
 require('./database');
-
-const app = express();
+require('./service/socket')(io);
 
 app.use(express.json());
 app.use(morgan('dev'));
 routes.forEach(item => app.use(item.routes()));
 
-app.listen(process.env.PORT, () => console.log(`server online in port ${process.env.PORT}`));
+server.listen(process.env.PORT, () => console.log(`server online in port ${process.env.PORT}`));

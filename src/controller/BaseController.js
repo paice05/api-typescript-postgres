@@ -3,13 +3,18 @@ const { Router } = require('express');
 // middleware
 const auth = require('../middleware/auth');
 
+// service
+const { Events } = require('../service/events');
+
 // utils
 const { generateHash } = require('../utils/hash');
 
-class BaseController {
-  constructor(model, path) {
+class BaseController extends Events {
+  constructor(model, path, name) {
+    super();
     this.model = model;
     this.path = path;
+    this.name = name;
   }
 
   async index(req, res) {
@@ -37,9 +42,11 @@ class BaseController {
     try {
       const response = await this.model.create(req.body);
 
+      super.emitCreated(response);
+
       return res.json(response);
     } catch (error) {
-      return res.status(500).json({ message: error });
+      return res.status(500).json({ message: String(error) });
     }
   }
 

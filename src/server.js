@@ -5,12 +5,12 @@ const http = require('http');
 const app = express();
 const server = http.createServer(app);
 
-const io = require('socket.io')(server);
+// const io = require('socket.io')(server);
 
 const routes = require('./routes');
 
 require('./database');
-require('./service/socket')(io);
+// require('./service/socket')(io);
 
 app.use(express.json());
 app.use(morgan('dev'));

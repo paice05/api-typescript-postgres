@@ -10,17 +10,20 @@ const { Events } = require('../service/events');
 const { generateHash } = require('../utils/hash');
 
 class BaseController extends Events {
-  constructor(model, path, name) {
+  constructor(model, path) {
     super();
     this.model = model;
     this.path = path;
-    this.name = name;
   }
 
   async index(req, res) {
-    const response = await this.model.findAll();
+    try {
+      const response = await this.model.findAll();
 
-    return res.json(response);
+      return res.json(response);
+    } catch (error) {
+      return res.json(error);
+    }
   }
 
   async show(req, res) {
@@ -41,8 +44,6 @@ class BaseController extends Events {
 
     try {
       const response = await this.model.create(req.body);
-
-      super.emitCreated(response);
 
       return res.json(response);
     } catch (error) {

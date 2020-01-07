@@ -11,14 +11,11 @@ class User extends Model {
           autoIncrement: true
         },
         name: DataTypes.STRING,
-        type_account: DataTypes.STRING,
-        full_name: DataTypes.STRING,
         username: {
           type: DataTypes.STRING,
           unique: true
         },
-        password: DataTypes.STRING,
-        phone: DataTypes.STRING
+        password: DataTypes.STRING
       },
       {
         sequelize: connection
@@ -26,9 +23,7 @@ class User extends Model {
     );
   }
 
-  static associate(models) {
-    this.hasMany(models.Address, { foreignKey: 'user_id', as: 'addresses' });
-  }
+  static associate(models) {}
 }
 
 module.exports = User;

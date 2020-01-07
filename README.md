@@ -1,44 +1,24 @@
-avatar {
-  url
-  userId
-}
+# DB-POSTGRES
 
-user: {
-  name
-  tel
-  type
-}
+## Requisitos
 
-ask: {
-  date
-  user
-  itens
-  subtotal
-}
+* Docker
+* Nodejs
 
-product: {
-  fileId
-  name
-  description
-  price
-  quantity
-}
+## Instalação
 
-itens: {
-  productId
-  askId
-  quantity
-}
+```bash
+docker-compose up -d
+```
 
-buy: {
-  askId
-  date
-  status
-}
+```bash
+yarn
+```
 
-files: {
-  url
-  productId
-}
+```bash
+yarn sequelize db:create; yarn sequelize db:migrate;
+```
 
-
+```bash
+yarn dev
+```

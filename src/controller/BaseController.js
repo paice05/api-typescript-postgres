@@ -1,17 +1,7 @@
 const { Router } = require('express');
 
-// middleware
-const auth = require('../middleware/auth');
-
-// service
-const { Events } = require('../service/events');
-
-// utils
-const { generateHash } = require('../utils/hash');
-
-class BaseController extends Events {
+class BaseController {
   constructor(model, path) {
-    super();
     this.model = model;
     this.path = path;
   }
@@ -31,23 +21,20 @@ class BaseController extends Events {
 
     const response = await this.model.findByPk(id);
 
-    if (!response) return res.json({ message: 'Record not found' });
+    if (!response) return res.status(500).json({ message: 'record not found' });
 
     return res.json(response);
   }
 
   async store(req, res) {
-    if (req.body.password) {
-      const password = await generateHash(req.body.password);
-      req.body.password = password;
-    }
+    const { body } = req;
 
     try {
-      const response = await this.model.create(req.body);
+      const response = await this.model.create(body);
 
       return res.json(response);
     } catch (error) {
-      return res.status(500).json({ message: String(error) });
+      return res.status(500).json({ message: error.message });
     }
   }
 
@@ -59,13 +46,15 @@ class BaseController extends Events {
 
     if (!isRecord) return res.json({ message: 'record not found!' });
 
-    const [number, response] = await this.model.update(
+    await this.model.update(
       { ...body },
       { where: { id } },
       { returning: true }
     );
 
-    return res.json({ number, response });
+    const response = await this.model.findByPk(isRecord.id);
+
+    return res.json(response);
   }
 
   async destroy(req, res) {
@@ -77,13 +66,13 @@ class BaseController extends Events {
 
     await this.model.destroy({ where: { id } });
 
-    return res.status(200).json({ message: 'OK' });
+    return res.send();
   }
 
   routes() {
     const route = Router();
 
-    route.get(this.path, auth, this.index.bind(this));
+    route.get(this.path, this.index.bind(this));
     route.get(`${this.path}/:id`, this.show.bind(this));
     route.post(this.path, this.store.bind(this));
     route.put(`${this.path}/:id`, this.update.bind(this));

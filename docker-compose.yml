@@ -1,19 +1,19 @@
 version: "3.1"
 services:
   db:
-    container_name: sqlnode-postgres
+    container_name: db-postgres-postgres
     image: postgres:10-alpine
     ports:
-      - "5435:5432"
+      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: ecommerce
+      POSTGRES_DB: db-postgres
   admin:
-    container_name: sqlnode-adminer
+    container_name: db-postgres-adminer
     image: adminer
     restart: always
     depends_on:
       - db
     ports:
-      - 8089:8080
+      - 8080:8080

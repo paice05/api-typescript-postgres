@@ -8,17 +8,8 @@ module.exports = {
         autoIncrement: true
       },
       name: Sequelize.STRING,
-      type_account: {
-        type: Sequelize.STRING,
-        enum: ['buy', 'sale']
-      },
-      full_name: Sequelize.STRING,
-      username: {
-        type: Sequelize.STRING,
-        unique: true
-      },
+      username: Sequelize.STRING,
       password: Sequelize.STRING,
-      phone: Sequelize.STRING,
       created_at: {
         type: Sequelize.DataTypes.DATE,
         allowNull: false

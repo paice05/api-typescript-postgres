@@ -1,7 +1,5 @@
-const { UserController, FieldController, ItemController } = require('./controller');
+const { UserController } = require('./controller');
 
 module.exports = [
   new UserController(),
-  new FieldController(),
-  new ItemController()
 ];
